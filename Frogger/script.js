@@ -1,6 +1,8 @@
 const timeLeftDisplay = document.querySelector('#time-left')
 const resultDisplay = document.querySelector('#result')
+const scoreDisplay = document.querySelector('#score')
 const startPauseButton = document.querySelector('#start-pause-button')
+const resetButton = document.querySelector('#reset-button')
 const squares = document.querySelectorAll('.grid div')
 const logsLeft = document.querySelectorAll('.log-left')
 const logsRight = document.querySelectorAll('.log-right')
@@ -12,6 +14,7 @@ const width = 9
 let timerId
 let outcomeTimerId
 let currentTime = 20
+let score = 0
 
 function moveFrog(e) {
     squares[currentIndex].classList.remove('frog')
@@ -30,7 +33,12 @@ function moveFrog(e) {
             if (currentIndex + width < width * width) currentIndex += width
             break
     }
+
     squares[currentIndex].classList.add('frog')
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        score++
+        scoreDisplay.textContent = score
+    }
 }
 
 function autoMoveElements() {
@@ -40,6 +48,7 @@ function autoMoveElements() {
     logsRight.forEach(logRight => moveLogRight(logRight))
     carsLeft.forEach(carLeft => moveCarLeft(carLeft))
     carsRight.forEach(carRight => moveCarRight(carRight))
+    checkOutComes() // Move this inside autoMoveElements
 }
 
 function checkOutComes() {
@@ -167,4 +176,20 @@ startPauseButton.addEventListener('click', () => {
         outcomeTimerId = setInterval(checkOutComes, 50)
         document.addEventListener('keyup', moveFrog)
     }
+})
+
+resetButton.addEventListener('click', () => {
+    clearInterval(timerId)
+    clearInterval(outcomeTimerId)
+    outcomeTimerId = null
+    timerId = null
+    currentTime = 20
+    score = 0
+    scoreDisplay.textContent = score
+    timeLeftDisplay.textContent = currentTime
+    resultDisplay.textContent = ''
+    squares[currentIndex].classList.remove('frog')
+    currentIndex = 76
+    squares[currentIndex].classList.add('frog')
+    document.removeEventListener('keyup', moveFrog)
 })
