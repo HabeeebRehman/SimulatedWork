@@ -4,56 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock, Paper, Scissors</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<style>
-    * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #333;
-}
-
-.game-container {
-    text-align: center;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 500px;
-}
-
-h1 {
-    margin-bottom: 20px;
-    font-size: 2em;
-}
-
-.choice-btn {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    background-color: #007bff;
-}
-
-.scores {
-    margin-bottom: 20px;
-}
-</style>
 <body>
     <div class="game-container">
         <h1>Rock, Paper, Scissors</h1>
         <div class="scores">
-            <p id="user-score">Your Score: 0</p>
-            <p id="computer-score">Computer's Score: 0</p>
+            <p id="user-score">Wins: 0</p>
+            <p id="computer-score">Losses: 0</p>
+            <p id="ties">Ties: 0</p>
         </div>
         <div class="choices">
             <button class="choice-btn" onclick="playGame('rock')">Rock</button>
