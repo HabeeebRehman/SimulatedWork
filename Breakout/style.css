@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 30px;
+    color: #333;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.grid {
+    position: relative;
+    width: 560px;
+    height: 300px;
+    background-color: #333;
+    border-radius: 10px;
+    border: solid 2px #333;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.user {
+    position: absolute;
+    width: 100px;
+    height: 20px;
+    background-color: #6200ea;
+    border-radius: 10px;
+    transition: 0.1s ease;
+}
+
+.block {
+    position: absolute;
+    width: 100px;
+    height: 20px;
+    background-color: #03a9f4;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.ball {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ff4081;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.score {
+    font-size: 20px;
+    color: #333;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.win, .lose {
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+    background-color: #ff5722;
+    padding: 10px;
+    border-radius: 10px;
+    width: 250px;
+    margin-top: 20px;
+}
+
+.win {
+    background-color: #4caf50;
+}
