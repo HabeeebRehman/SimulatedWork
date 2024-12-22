@@ -1,50 +1,68 @@
-const squares = document.querySelectorAll('.square')
-const mole = document.querySelector('.mole')
-const timeLeft = document.querySelector('#time-left')
-const score = document.querySelector('#score')
+const squares = document.querySelectorAll('.square');
+const scoreDisplay = document.querySelector('#score');
+const timeLeftDisplay = document.querySelector('#time-left');
 
-let result = 0
-let hitPosition
-let currentTime = 60
-let timerId = null
+let result = 0;
+let currentTime = 60;
+let timerId = null;
+let moleTimerId = null;
+let hitPosition;
+let moleSpeed = 800;
 
 function randomSquare() {
   squares.forEach(square => {
-    square.classList.remove('mole')
-  })
+    square.classList.remove('mole', 'bonus-mole'); 
+  });
 
-  let randomSquare = squares[Math.floor(Math.random() * 9)]
-  randomSquare.classList.add('mole')
+  const randomSquare = squares[Math.floor(Math.random() * squares.length)];
+  const isBonus = Math.random() < 0.2; 
 
-  hitPosition = randomSquare.id
+  if (isBonus) {
+    randomSquare.classList.add('bonus-mole');
+    randomSquare.dataset.bonus = true;
+  } else {
+    randomSquare.classList.add('mole');
+    randomSquare.dataset.bonus = false;
+  }
+
+  hitPosition = randomSquare.id;
 }
 
 squares.forEach(square => {
   square.addEventListener('mousedown', () => {
-    if (square.id == hitPosition) {
-      result++
-      score.textContent = result
-      hitPosition = null
+    if (square.id === hitPosition) {
+      if (square.dataset.bonus === 'true') {
+        result += 5;
+      } else {
+        result++;
+      }
+      scoreDisplay.textContent = result;
+      hitPosition = null;
     }
-  })
-})
+  });
+});
 
 function moveMole() {
-  timerId = setInterval(randomSquare, 500)
-}
+  moleTimerId = setInterval(randomSquare, moleSpeed);
 
-moveMole()
+  setInterval(() => {
+    if (moleSpeed > 300) {
+      moleSpeed -= 50;
+      clearInterval(moleTimerId);
+      moleTimerId = setInterval(randomSquare, moleSpeed);
+    }
+  }, 10000);
+}
 
 function countDown() {
- currentTime--
- timeLeft.textContent = currentTime
+  currentTime--;
+  timeLeftDisplay.textContent = currentTime;
 
- if (currentTime == 0) {
-   clearInterval(countDownTimerId)
-   clearInterval(timerId)
-   alert('GAME OVER! Your final score is ' + result)
- }
-
+  if (currentTime === 0) {
+    clearInterval(timerId);
+    clearInterval(moleTimerId);
+    alert(`GAME OVER! Your final score is ${result}`);
+  }
 }
-
-let countDownTimerId = setInterval(countDown, 1000)
+timerId = setInterval(countDown, 1000);
+moveMole();
